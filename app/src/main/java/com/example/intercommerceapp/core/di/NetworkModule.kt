@@ -1,5 +1,6 @@
 package com.example.intercommerceapp.core.di
 
+import com.example.intercommerceapp.core.network.NetworkConstants
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
