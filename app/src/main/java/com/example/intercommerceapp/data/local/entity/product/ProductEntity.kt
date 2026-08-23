@@ -1,5 +1,6 @@
 package com.example.intercommerceapp.data.local.entity.product
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -15,5 +16,5 @@ data class ProductEntity(
     val brand: String?,
     val category: String,
     val thumbnail: String,
-    val images: List<String>
+    @ColumnInfo("images")val images: List<String>
 )

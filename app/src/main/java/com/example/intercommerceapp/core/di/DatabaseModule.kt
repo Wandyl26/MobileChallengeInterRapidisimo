@@ -2,6 +2,10 @@ package com.example.intercommerceapp.core.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.intercommerceapp.data.local.InterCommerceDatabase
+import com.example.intercommerceapp.data.local.dao.cart.CartDao
+import com.example.intercommerceapp.data.local.dao.product.ProductDao
+import com.example.intercommerceapp.data.local.dao.product.ProductRemoteKeysDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

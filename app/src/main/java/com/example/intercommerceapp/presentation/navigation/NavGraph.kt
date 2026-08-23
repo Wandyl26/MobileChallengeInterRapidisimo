@@ -1,4 +1,3 @@
-package com.example.intercommerceapp.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -8,6 +7,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.intercommerceapp.presentation.cart.CartScreen
 import com.example.intercommerceapp.presentation.catalog.CatalogScreen
+import com.example.intercommerceapp.presentation.navigation.CartRoute
+import com.example.intercommerceapp.presentation.navigation.CatalogRoute
+import com.example.intercommerceapp.presentation.navigation.ProductDetailRoute
 import com.example.intercommerceapp.presentation.productdetail.ProductDetailScreen
 
 @Composable

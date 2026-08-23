@@ -1,5 +1,7 @@
 package com.example.intercommerceapp.core.di
 
+import com.example.intercommerceapp.core.util.DispatchersProvider
+import com.example.intercommerceapp.core.util.DispatchersProviderImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

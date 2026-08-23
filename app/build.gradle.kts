@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.dagger.hilt)
@@ -97,8 +96,6 @@ dependencies {
 
     implementation(libs.paging.runtime.ktx)
     implementation(libs.paging.compose)
-
-    implementation(libs.runtime.livedata)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
