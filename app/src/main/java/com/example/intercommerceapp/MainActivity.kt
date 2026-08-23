@@ -8,7 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.intercommerceapp.ui.theme.InterCommerceTheme
+import com.example.intercommerceapp.presentation.navigation.NavGraph
+import com.example.intercommerceapp.presentation.ui.theme.InterCommerceTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                   // NavGraph()
+                   NavGraph()
                 }
             }
         }
