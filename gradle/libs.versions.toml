@@ -3,8 +3,9 @@ agp = "8.9.3"
 kotlin = "2.0.21"
 coreKtx = "1.18.0"
 junit = "4.13.2"
-junitVersion = "1.3.0"
-espressoCore = "3.7.0"
+mockk = "1.13.10"
+truth = "1.4.2"
+turbine = "1.1.0"
 lifecycleRuntimeKtx = "2.10.0"
 activityCompose = "1.13.0"
 composeBom = "2026.04.01"
@@ -12,12 +13,17 @@ kotlin-ksp="2.0.21-1.0.27"
 runner = "1.7.0"
 
 retrofit2="3.0.0"
+retrofit2-kotlinx-serialization-converter="1.0.0"
 converter-gson="3.0.0"
 kotlinx-coroutines="1.9.0"
+okhttp="4.12.0"
 room="2.8.4"
+
+paging="3.5.1"
 
 runtime-livedata="1.11.0"
 dagger-hilt="2.56.2"
+hilt-navigation-compose ="1.4.0"
 
 nav-version = "2.9.8"
 
@@ -31,9 +37,12 @@ coil = "2.6.0"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -47,19 +56,34 @@ androidx-materialIcons = { group = "androidx.compose.material", name = "material
 androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 
 retrofit2={group= "com.squareup.retrofit2",name="retrofit",version.ref="retrofit2"}
+retrofit2-kotlinx-serialization-converter={group= "com.jakewharton.retrofit",name="retrofit2-kotlinx-serialization-converter",version.ref="retrofit2-kotlinx-serialization-converter"}
 retrofit2-converter-gson={group= "com.squareup.retrofit2",name="converter-gson",version.ref="converter-gson"}
 kotlinx-coroutines={group= "org.jetbrains.kotlinx",name="kotlinx-coroutines-android",version.ref="kotlinx-coroutines"}
+kotlinx-coroutines-test={group= "org.jetbrains.kotlinx",name="kotlinx-coroutines-test",version.ref="kotlinx-coroutines"}
+okhttp={group= "com.squareup.okhttp3",name="okhttp",version.ref="okhttp"}
+logging-interceptor={group= "com.squareup.okhttp3",name="logging-interceptor",version.ref="okhttp"}
 
 androidx-room={group= "androidx.room",name="room-ktx",version.ref="room"}
 androidx-room-compiler={group= "androidx.room",name="room-compiler",version.ref="room"}
 androidx-room-runtime={group= "androidx.room",name="room-runtime",version.ref="room"}
 androidx-room-testing={group= "androidx.room",name="room-testing",version.ref="room"}
+androidx-room-paging={group= "androidx.room",name="room-paging",version.ref="room"}
+
+coil-compose={group= "io.coil-kt",name="coil-compose",version.ref="coil"}
+coil-svg={group= "io.coil-kt",name="coil-svg",version.ref="coil"}
+
+
+paging-runtime-ktx={group= "androidx.paging",name="paging-runtime-ktx",version.ref="paging"}
+paging-compose={group= "androidx.paging",name="paging-compose",version.ref="paging"}
+
+
 
 runtime-livedata={group= "androidx.compose.runtime",name="runtime-livedata",version.ref="runtime-livedata"}
 
 hilt-android={group= "com.google.dagger",name="hilt-android",version.ref="dagger-hilt"}
 hilt-android-compiler={group= "com.google.dagger",name="hilt-android-compiler",version.ref="dagger-hilt"}
 hilt-android-testing={group= "com.google.dagger",name="hilt-android-testing",version.ref="dagger-hilt"}
+hilt-navigation-compose={group= "androidx.hilt",name="hilt-navigation-compose",version.ref="hilt-navigation-compose"}
 
 nav-version={group= "androidx.navigation",name="navigation-compose",version.ref="nav-version"}
 nav-testing={group= "androidx.navigation",name="navigation-testing",version.ref="nav-version"}
@@ -75,6 +99,7 @@ coil={group= "io.coil-kt",name="coil-compose",version.ref="coil"}
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
 
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }

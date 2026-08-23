@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.dagger.hilt)
 }
@@ -30,14 +31,23 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
+    @Suppress("DEPRECATION")
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.14"
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
 }
 
@@ -46,6 +56,8 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
@@ -58,21 +70,33 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.mockk)
+    testImplementation(libs.truth)
+    testImplementation(libs.turbine)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.retrofit2)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.kotlinx.coroutines)
+    testImplementation(libs.kotlinx.coroutines.test)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 
     androidTestImplementation(libs.androidx.room.testing)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room)
+    implementation(libs.androidx.room.paging)
     ksp(libs.androidx.room.compiler)
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil.svg)
+
+    implementation(libs.paging.runtime.ktx)
+    implementation(libs.paging.compose)
 
     implementation(libs.runtime.livedata)
 
@@ -82,6 +106,7 @@ dependencies {
     kspAndroidTest(libs.hilt.android.compiler)
     testImplementation(libs.hilt.android.testing)
     kspTest(libs.hilt.android.compiler)
+    implementation(libs.hilt.navigation.compose)
 
     implementation(libs.nav.version)
     androidTestImplementation(libs.nav.testing)
