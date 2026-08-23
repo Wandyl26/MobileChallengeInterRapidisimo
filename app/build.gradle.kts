@@ -109,6 +109,7 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
 
     implementation(libs.nav.version)
+    implementation(libs.kotlinx.serialization.json)
     androidTestImplementation(libs.nav.testing)
 
     androidTestImplementation(libs.core.testing)

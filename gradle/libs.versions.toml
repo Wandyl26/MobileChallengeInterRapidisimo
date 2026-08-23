@@ -26,6 +26,7 @@ dagger-hilt="2.56.2"
 hilt-navigation-compose ="1.4.0"
 
 nav-version = "2.9.8"
+kotlinx-serialization-json = "1.7.1"
 
 core-testing = "2.2.0"
 appcompat = "1.7.1"
@@ -86,6 +87,7 @@ hilt-android-testing={group= "com.google.dagger",name="hilt-android-testing",ver
 hilt-navigation-compose={group= "androidx.hilt",name="hilt-navigation-compose",version.ref="hilt-navigation-compose"}
 
 nav-version={group= "androidx.navigation",name="navigation-compose",version.ref="nav-version"}
+kotlinx-serialization-json={group= "org.jetbrains.kotlinx",name="kotlinx-serialization-json",version.ref="kotlinx-serialization-json"}
 nav-testing={group= "androidx.navigation",name="navigation-testing",version.ref="nav-version"}
 
 core-testing={group= "androidx.arch.core",name="core-testing",version.ref="core-testing"}
