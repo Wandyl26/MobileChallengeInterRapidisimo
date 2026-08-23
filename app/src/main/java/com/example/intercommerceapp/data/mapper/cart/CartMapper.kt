@@ -1,6 +1,7 @@
 package com.example.intercommerceapp.data.mapper.cart
 
 import com.example.intercommerceapp.data.local.entity.cart.CartItemEntity
+import com.example.intercommerceapp.domain.model.CartItem
 
 
 fun CartItemEntity.toDomain(): CartItem {

@@ -13,10 +13,9 @@ import com.example.intercommerceapp.data.mapper.product.toEntity
 import com.example.intercommerceapp.data.remote.DummyJsonApi
 import retrofit2.HttpException
 import java.io.IOException
-import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class ProductRemoteMediator @Inject constructor(
+class ProductRemoteMediator(
     private val api: DummyJsonApi,
     private val database: InterCommerceDatabase,
     private val query: String? = null

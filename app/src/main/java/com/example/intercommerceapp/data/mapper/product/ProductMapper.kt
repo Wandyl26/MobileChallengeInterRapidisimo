@@ -1,6 +1,7 @@
 package com.example.intercommerceapp.data.mapper.product
 import com.example.intercommerceapp.data.local.entity.product.ProductEntity
 import com.example.intercommerceapp.data.remote.dto.ProductDto
+import com.example.intercommerceapp.domain.Product
 
 fun ProductDto.toDomain(): Product {
     return Product(
