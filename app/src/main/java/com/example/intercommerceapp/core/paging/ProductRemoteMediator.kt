@@ -9,6 +9,7 @@ import com.example.intercommerceapp.core.network.NetworkConstants
 import com.example.intercommerceapp.data.local.InterCommerceDatabase
 import com.example.intercommerceapp.data.local.entity.product.ProductEntity
 import com.example.intercommerceapp.data.local.entity.product.ProductRemoteKeysEntity
+import com.example.intercommerceapp.data.mapper.product.toEntity
 import com.example.intercommerceapp.data.remote.DummyJsonApi
 import retrofit2.HttpException
 import java.io.IOException
