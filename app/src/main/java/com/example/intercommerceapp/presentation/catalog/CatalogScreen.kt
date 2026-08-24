@@ -44,9 +44,11 @@ fun CatalogScreen(
     val isLoading by viewModel.isLoading.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
 
+    val snackbarHostState = remember { SnackbarHostState() }
+
     LaunchedEffect(errorMessage) {
         if (errorMessage != null) {
-            // Mostrar Snackbar si es necesario
+            snackbarHostState.showSnackbar(errorMessage!!)
         }
     }
 
@@ -97,7 +99,6 @@ private fun SearchBar(
         }
     )
 }
-
 @Composable
 private fun ProductGrid(
     products: LazyPagingItems<Product>,
@@ -107,12 +108,15 @@ private fun ProductGrid(
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         LazyVerticalGrid(
-            columns = GridCells.Adaptive(minSize = 150.dp),
+            columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(products.itemCount) { index ->
+            items(
+                count = products.itemCount,
+                key = { index -> products[index]?.id ?: index }
+            ) { index ->
                 products[index]?.let { product ->
                     ProductCard(
                         product = product,
@@ -121,18 +125,17 @@ private fun ProductGrid(
                 }
             }
 
-            // Mostrar skeleton mientras carga
             if (products.loadState.refresh is LoadState.Loading || isLoading) {
                 items(6) {
                     ProductCardSkeleton()
                 }
             }
 
-            // Mostrar error si falla la carga y no hay datos
+
             if (products.loadState.refresh is LoadState.Error && products.itemCount == 0) {
                 item(span = { GridItemSpan(maxLineSpan) }) {
                     ErrorMessage(
-                        message = errorMessage ?: "Error al cargar productos. Inténtalo de nuevo.",
+                        message = errorMessage ?: "Error al cargar productos.",
                         onRetry = { products.retry() }
                     )
                 }

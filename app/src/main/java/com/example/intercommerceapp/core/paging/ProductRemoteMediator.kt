@@ -11,6 +11,7 @@ import com.example.intercommerceapp.data.local.entity.product.ProductEntity
 import com.example.intercommerceapp.data.local.entity.product.ProductRemoteKeysEntity
 import com.example.intercommerceapp.data.mapper.product.toEntity
 import com.example.intercommerceapp.data.remote.DummyJsonApi
+import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -18,7 +19,7 @@ import java.io.IOException
 class ProductRemoteMediator(
     private val api: DummyJsonApi,
     private val database: InterCommerceDatabase,
-    private val query: String? = null
+    private val query: String?
 ) : RemoteMediator<Int, ProductEntity>() {
 
     private val productDao = database.productDao()
@@ -28,7 +29,7 @@ class ProductRemoteMediator(
         loadType: LoadType,
         state: PagingState<Int, ProductEntity>
     ): MediatorResult {
-        val page = when (loadType) {
+        var page = when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
                 remoteKeys?.nextKey?.minus(1) ?: 0
@@ -54,7 +55,8 @@ class ProductRemoteMediator(
             }
 
             val products = response.products
-            val endOfPaginationReached = products.isEmpty() || response.total <= skip + products.size
+            val total = response.total
+            val endOfPaginationReached = products.isEmpty() || skip + products.size >= total
 
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
@@ -65,9 +67,9 @@ class ProductRemoteMediator(
                 val prevKey = if (page == 0) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
 
-                val keys = products.map {
+                val keys = products.map { product ->
                     ProductRemoteKeysEntity(
-                        productId = it.id,
+                        productId = product.id,
                         prevKey = prevKey,
                         nextKey = nextKey
                     )
@@ -79,9 +81,9 @@ class ProductRemoteMediator(
 
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (e: IOException) {
-            return MediatorResult.Error(e)
+            return MediatorResult.Success(endOfPaginationReached = true)
         } catch (e: HttpException) {
-            return MediatorResult.Error(e)
+            return MediatorResult.Success(endOfPaginationReached = true)
         }
     }
 

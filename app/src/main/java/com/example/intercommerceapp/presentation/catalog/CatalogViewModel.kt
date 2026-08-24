@@ -30,12 +30,11 @@ class CatalogViewModel @Inject constructor(
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     val products = _searchQuery
         .debounce(400)
         .distinctUntilChanged()
         .flatMapLatest { query ->
-            getProductsUseCase(query.ifBlank { null })
+            getProductsUseCase(query.ifBlank { "" })
         }
         .cachedIn(viewModelScope)
 

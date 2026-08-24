@@ -25,20 +25,27 @@ class ProductRepositoryImpl @Inject constructor(
 ) : ProductRepository {
 
     override fun getProductsPaged(query: String?): Flow<PagingData<Product>> {
-        val pagingSourceFactory = { database.productDao().getPagedProducts() }
-        val remoteMediator = remoteMediatorFactory.create(query)
+        val pagingSourceFactory = {
+            if (query.isNullOrBlank()) {
+                database.productDao().getPagedProducts()
+            } else {
+                database.productDao().searchProducts(query)
+            }
+        }
+
         return Pager(
             config = PagingConfig(
                 pageSize = NetworkConstants.PAGE_SIZE,
                 enablePlaceholders = false,
-                initialLoadSize = NetworkConstants.PAGE_SIZE * 2
+                initialLoadSize = NetworkConstants.PAGE_SIZE
             ),
-            remoteMediator = remoteMediator,
+            remoteMediator = remoteMediatorFactory.create(query),
             pagingSourceFactory = pagingSourceFactory
         ).flow.map { pagingData ->
-            pagingData.map { productEntity -> productEntity.toDomain() }
+            pagingData.map { entity -> entity.toDomain() }
         }
     }
+
 
     override suspend fun getProductDetail(id: Int): Product? {
         return database.productDao().getProductById(id)?.toDomain()

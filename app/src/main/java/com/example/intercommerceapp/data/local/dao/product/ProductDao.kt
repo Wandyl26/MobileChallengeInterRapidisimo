@@ -12,12 +12,23 @@ interface ProductDao {
 
     @Query("SELECT * FROM products ORDER BY id ASC")
     fun getPagedProducts(): PagingSource<Int, ProductEntity>
+    @Query(
+        """
+        SELECT * FROM products 
+        WHERE title LIKE '%' || :query || '%' 
+           OR category LIKE '%' || :query || '%' 
+           OR brand LIKE '%' || :query || '%'
+        ORDER BY id ASC
+        """
+    )
+    fun searchProducts(query: String): PagingSource<Int, ProductEntity>
 
     @Query("SELECT * FROM products WHERE id = :id")
     suspend fun getProductById(id: Int): ProductEntity?
 
     @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insertAll(products: List<ProductEntity>)
+
 
     @Query("DELETE FROM products")
     suspend fun clearAll()
